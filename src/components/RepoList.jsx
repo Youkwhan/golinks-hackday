@@ -21,7 +21,9 @@ export default function RepoList({ repoItems }) {
 
 	async function fetchCommits() {
 		try {
-			const res = await fetch(`https://api.github.com/repos/${repoId}/commits`)
+			const res = await fetch(
+				`https://api.github.com/repos/Youkwhan/golinks-hackday/commits`
+			)
 			const data = await res.json()
 			setCommitList(data)
 		} catch (error) {

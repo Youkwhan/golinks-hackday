@@ -1,0 +1,84 @@
+import { useEffect, useState } from "react"
+import "./App.css"
+import Search from "./components/Search"
+import RepoList from "./components/RepoList"
+
+function App() {
+	// our fetched items
+	const [repoItems, setRepoItems] = useState([])
+	// user input search repo
+	const orgName = "Netflix"
+	const [searchOrg, setSearchOrg] = useState("")
+	const [searchRepo, setSearchRepo] = useState("") //repo search, in our set orgName
+	const apiUrlOrg = `https://api.github.com/search/repositories?q=org:${encodeURIComponent(
+		orgName
+	)}+${encodeURIComponent(searchRepo)}&sort=stars&order=desc`
+
+	console.log(repoItems)
+	useEffect(() => {
+		const fetchRepos = async () => {
+			try {
+				const res = await fetch(apiUrlOrg)
+				if (!res.ok) {
+					if (res.status === 422) {
+						//Validation failed, or the endpoint has been spammed. (not enough admin power)
+						throw new Error("Unprocessable Entity: Invalid search query.")
+					}
+					throw new Error(`Request failed with status code ${res.status}`)
+				}
+
+				const data = await res.json()
+				// console.log(data)
+				const parsedRepoObjData = parseRepos(data)
+				setRepoItems(parsedRepoObjData)
+			} catch (error) {
+				handleApiError(error)
+			}
+		}
+		fetchRepos()
+	}, [])
+
+	function parseRepos(data) {
+		const repositories = data.items
+		return repositories.map((repo) => ({
+			id: repo.id,
+			repoName: repo.name,
+			description: repo.description,
+			updatedAt: repo.updated_at,
+			stars: repo.stargazers_count,
+			forks: repo.forks_count,
+			dateCreated: repo.created_at,
+		}))
+	}
+
+	function handleApiError(error) {
+		if (error.message === "Unprocessable Entity: Invalid search query.") {
+			console.log("Invalid search query. Please check your search parameters.")
+		}
+	}
+
+	return (
+		<div>
+			<nav>
+				<h1>Search for Github Organizations </h1>
+				<Search
+					type="Org"
+					search={searchOrg}
+					setSearch={setSearchOrg}
+				/>
+			</nav>
+			<main>
+				<h2>Repositories</h2>
+				<Search
+					type="Repo"
+					search={searchRepo}
+					setSearch={setSearchRepo}
+				/>
+
+				<RepoList repoItems={repoItems} />
+			</main>
+		</div>
+	)
+}
+
+export default App

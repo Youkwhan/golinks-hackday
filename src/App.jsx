@@ -10,33 +10,46 @@ function App() {
 	const orgName = "Netflix"
 	const [searchOrg, setSearchOrg] = useState("")
 	const [searchRepo, setSearchRepo] = useState("") //repo search, in our set orgName
+	const [delaySearch, setDelaySearch] = useState("")
 	const apiUrlOrg = `https://api.github.com/search/repositories?q=org:${encodeURIComponent(
 		orgName
-	)}+${encodeURIComponent(searchRepo)}&sort=stars&order=desc`
+	)}+${encodeURIComponent(delaySearch)}&sort=stars&order=desc`
 
-	console.log(repoItems)
 	useEffect(() => {
-		const fetchRepos = async () => {
-			try {
-				const res = await fetch(apiUrlOrg)
-				if (!res.ok) {
-					if (res.status === 422) {
-						//Validation failed, or the endpoint has been spammed. (not enough admin power)
-						throw new Error("Unprocessable Entity: Invalid search query.")
-					}
-					throw new Error(`Request failed with status code ${res.status}`)
-				}
-
-				const data = await res.json()
-				// console.log(data)
-				const parsedRepoObjData = parseRepos(data)
-				setRepoItems(parsedRepoObjData)
-			} catch (error) {
-				handleApiError(error)
-			}
-		}
 		fetchRepos()
 	}, [])
+
+	// debouncer logic
+	useEffect(() => {
+		const timeoutId = setTimeout(() => {
+			if (delaySearch !== searchRepo) {
+				setDelaySearch(searchRepo)
+				fetchRepos()
+			}
+		}, 200)
+		// If run again, reset our timer by canceling the old one
+		return () => clearTimeout(timeoutId)
+	}, [searchRepo])
+
+	async function fetchRepos() {
+		try {
+			const res = await fetch(apiUrlOrg)
+			if (!res.ok) {
+				if (res.status === 422) {
+					//Validation failed, or the endpoint has been spammed. (not enough admin power)
+					throw new Error("Unprocessable Entity: Invalid search query.")
+				}
+				throw new Error(`Request failed with status code ${res.status}`)
+			}
+
+			const data = await res.json()
+			// console.log(data)
+			const parsedRepoObjData = parseRepos(data)
+			setRepoItems(parsedRepoObjData)
+		} catch (error) {
+			handleApiError(error)
+		}
+	}
 
 	function parseRepos(data) {
 		const repositories = data.items
@@ -69,7 +82,7 @@ function App() {
 					<h2>Repositories</h2>
 					<Search type="Repo" search={searchRepo} setSearch={setSearchRepo} />
 				</header>
-				<hr className="hr"/>
+				<hr className="hr" />
 
 				<RepoList repoItems={repoItems} />
 			</main>

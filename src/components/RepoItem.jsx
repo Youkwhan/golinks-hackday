@@ -7,9 +7,9 @@ export default function RepoItem({ item }) {
 			</div>
 			<p className="card__desc">{item.description}</p>
 			<div className="card__props">
-				<p className="prop language"><i class="fa-solid fa-circle"></i>{item.language}</p>
-				<p className="prop star"><i class="fa-regular fa-star"></i>{item.stars}</p>
-				<p className="prop fork"><i class="fa-solid fa-code-fork"></i>{item.forks}</p>
+				<p className="prop language"><i className="fa-solid fa-circle"></i>{item.language}</p>
+				<p className="prop star"><i className="fa-regular fa-star"></i>{item.stars}</p>
+				<p className="prop fork"><i className="fa-solid fa-code-fork"></i>{item.forks}</p>
 				<p className="prop date">Updated at {item.updatedAt}</p>
 			</div>
 		</div>

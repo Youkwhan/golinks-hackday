@@ -1,6 +1,12 @@
-export default function RepoItem({ item }) {
+export default function RepoItem({ item, onClick}) {
+	function handleClick() {
+		if (onClick) {
+			onClick(item.id)
+		}
+	}
+
 	return (
-		<div className="card">
+		<div className="card" onClick={handleClick}>
 			<div className="card__title">
 				<h2>{item.repoName}</h2>
 				<p className="prop date">Created at {item.dateCreated}</p>

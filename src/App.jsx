@@ -45,6 +45,7 @@ function App() {
 			repoName: repo.name,
 			description: repo.description,
 			updatedAt: repo.updated_at,
+			language: repo.language,
 			stars: repo.stargazers_count,
 			forks: repo.forks_count,
 			dateCreated: repo.created_at,
@@ -58,22 +59,17 @@ function App() {
 	}
 
 	return (
-		<div>
+		<div className="App">
 			<nav>
 				<h1>Search for Github Organizations </h1>
-				<Search
-					type="Org"
-					search={searchOrg}
-					setSearch={setSearchOrg}
-				/>
+				<Search type="Org" search={searchOrg} setSearch={setSearchOrg} />
 			</nav>
-			<main>
-				<h2>Repositories</h2>
-				<Search
-					type="Repo"
-					search={searchRepo}
-					setSearch={setSearchRepo}
-				/>
+			<main className="main">
+				<header className="main__header">
+					<h2>Repositories</h2>
+					<Search type="Repo" search={searchRepo} setSearch={setSearchRepo} />
+				</header>
+				<hr className="hr"/>
 
 				<RepoList repoItems={repoItems} />
 			</main>

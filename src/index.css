@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+
+:root {
+	--ff-primary: "Inter", sans-serif;
+   --fw-400: 400;
+	--fw-500: 500;
+	--fw-700: 700;
+
+   --fs-large: 2rem; 
+	--fs-regular: 1rem; 
+	--fs-special: 0.8rem; 
+
+   --clr-primary: #eaedf5;
+	--clr-secondary: #161b22;
+   --clr-accent: #2e81f7;
+   --clr-bg: #0d1117;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	font-family: var(--ff-primary);
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+
+   background-color: var(--clr-bg);
+   color: var(--clr-primary);
+	display: grid;
+	place-items: center;
+	user-select: none;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	margin: auto;
+}
+
+main {
+	max-width: 1500px;
+	margin: auto;
+}
+
+/* typograph */
+h1{
+   font-weight: var(--fw-700);
+   font-size: var(--fs-large);
+}
+
+p{
+   font-weight: var(--fw-400);
+   font-size: var(--fs-regular);
+}
+
+/* button */
+/* buttons */
+
+.btn {
+	color: var(--clr-primary);
+	background-color: var(--clr-accent);
+
+	cursor: pointer;
+	border: none;
+	transition: 150ms;
+}
+
+.btn:focus {
+	outline: none;
+}
+
+.btn:hover {
+	background-color: #616fb8;
+}
+
+.btn:active {
+	box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}

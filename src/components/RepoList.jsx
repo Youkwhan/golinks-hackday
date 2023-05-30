@@ -1,4 +1,5 @@
 import RepoItem from "./RepoItem"
+import "./RepoItem.css"
 export default function RepoList({ repoItems }) {
 	// list of JSX elements
 	function renderRepoCards() {
@@ -6,5 +7,5 @@ export default function RepoList({ repoItems }) {
 			return <RepoItem key={item.id} item={item} />
 		})
 	}
-	return <section>{renderRepoCards()}</section>
+	return <section className="repo-container">{renderRepoCards()}</section>
 }

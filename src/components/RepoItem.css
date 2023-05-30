@@ -1,0 +1,87 @@
+.repo-container {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	padding: 2em;
+}
+
+.card {
+	padding: 1em 2em;
+	background: rgba(137, 143, 173, 0.23);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(37, 37, 37, 0.1);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	border: 1px solid rgba(194, 202, 244, 0.6);
+}
+
+.card:hover {
+	box-shadow: rgba(0, 81, 255, 0.35) 5px 10px 15px;
+	text-shadow: 0px 0px 20px #aaaaaa;
+}
+
+.card:active {
+	box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
+
+.card__title > h2 {
+	color: var(--clr-accent);
+}
+.card__title,
+.card__props {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+	align-items: center;
+}
+.card__desc {
+	margin-top: 10px;
+}
+
+.card__props {
+	margin: 1rem auto;
+	justify-content: left;
+	width: 100%;
+}
+.prop {
+	height: 22px;
+	line-height: 22px;
+	border-radius: 8px;
+	padding: 0 8px;
+	margin: 5px 8px 5px 0;
+
+	font-weight: var(--fw-reg);
+	font-size: var(--fs-body);
+
+	transition: 50ms ease-out;
+	cursor: default;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	position: relative;
+	top: 0;
+}
+
+.prop:hover {
+	top: -2px;
+}
+
+.language{
+   background: #ffeeef;
+	color: #e43d45;
+}
+.star{
+   background: #e8f8ff;
+	color: #2da3da;
+}
+
+.fork{
+   background: #e2ffdf;
+	color: #2e9450;
+}
+
+.date{
+   background: #f0edff;
+	color: #7056e0;
+}

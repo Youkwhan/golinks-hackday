@@ -1,7 +1,9 @@
+import "./Search.css"
+
 export default function Search(props) {
 	const { type, search, setSearch } = props
 	return (
-		<form>
+		<form className="form">
 			<div>
 				<label htmlFor={`github${type}Search`} hidden>
 					Search for GitHub {type}
@@ -16,7 +18,7 @@ export default function Search(props) {
 					placeholder={`Search for a GitHub ${type}`}
 				/>
 			</div>
-			<button type="submit" className="btn btn-primary">
+			<button type="submit" className="btn btn-search">
 				Search
 			</button>
 		</form>

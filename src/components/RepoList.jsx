@@ -5,14 +5,28 @@ export default function RepoList({ repoItems }) {
 	const [commitList, setCommitList] = useState([])
 	const [repoId, setRepoId] = useState("")
 
+	console.log(commitList)
+
 	useEffect(() => {
-		// fetchCommits();
+		if (repoId != "") {
+			fetchCommits()
+		}
 	}, [repoId])
 
 	function handleItemClick(itemId) {
 		console.log("Item clicked:", itemId)
 		// We want to render by commits from this ID
 		setRepoId(itemId)
+	}
+
+	async function fetchCommits() {
+		try {
+			const res = await fetch(`https://api.github.com/repos/${repoId}/commits`)
+			const data = await res.json()
+			setCommitList(data)
+		} catch (error) {
+			console.log("Error fetching commits:", error)
+		}
 	}
 
 	// list of JSX elements
